@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Hacker News!</title>
+  </head>
+  <body>
+    <ul>
+      {{ range  .Items}}
+      <li>
+        {{.ID}}
+        <p>
+          <a target="_blank" href="stories/{{.ID}}.html">{{.Title}}</a>
+        </p>
+        <p>
+          {{.Score}}
+        </p>
+      </li>
+      {{ end}}
+    </ul>
+  </body>
+</html>

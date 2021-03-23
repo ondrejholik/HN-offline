@@ -91,7 +91,11 @@ func fetchItem(id int, itemsChan chan Item, wg *sync.WaitGroup) {
 }
 
 func (item *Item) fetchUrl() {
-	resp, err := http.Get(item.URL)
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", item.URL, nil)
+	req.Header.Add("Accept", `text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8`)
+	req.Header.Add("User-Agent", `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11`)
+	resp, err := client.Do(req)
 	if err != nil {
 		log.Println("cannot fetch: ", item.Title, err)
 		item.Type = "None"
